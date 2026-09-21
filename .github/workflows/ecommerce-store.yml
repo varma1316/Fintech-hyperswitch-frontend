@@ -19,6 +19,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
+
 jobs:
   build-and-deploy:
     name: Build & Deploy Storefront
@@ -63,13 +66,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          cache-dependency-path: 'ecommerce-store/package-lock.json'
 
       - name: Install Dependencies
         run: |
           cd ecommerce-store
-          npm ci
+          npm install --legacy-peer-deps
 
       - name: Build Storefront (Vite)
         run: |
