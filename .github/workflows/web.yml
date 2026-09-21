@@ -66,6 +66,14 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'web/package-lock.json'
 
+      - name: Fetch Shared SDK Utils
+        run: |
+          if [ ! -d "web/shared-code/sdk-utils" ]; then
+            echo "Cloning hyperswitch-sdk-utils..."
+            rm -rf web/shared-code
+            git clone --depth 1 https://github.com/juspay/hyperswitch-sdk-utils.git web/shared-code
+          fi
+
       - name: Install Dependencies
         run: |
           cd web
@@ -74,7 +82,8 @@ jobs:
       - name: Build Web SDK
         run: |
           cd web
-          npm run build || npm run re:build
+          npm run re:build
+          npm run build
 
       - name: Deploy to S3 (/web/)
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'

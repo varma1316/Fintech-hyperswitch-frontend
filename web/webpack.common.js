@@ -91,6 +91,9 @@ const authorizedFrameSources = [
   // Add other trusted sources here
 ];
 function extractBaseDSNUrl(dsn) {
+  if (!dsn || typeof dsn !== "string") {
+    return null;
+  }
   const match = dsn.match(/^https:\/\/[^@]+@([^/]+)\//);
   if (match && match[1]) {
     return `https://${match[1]}`;
@@ -124,7 +127,9 @@ const authorizedConnectSources = [
   "https://js.verygoodvault.com/vgs-collect/2.27.2/vgs-collect.js",
   "https://vgs-collect-keeper.apps.verygood.systems/vgs",
   "https://eu.playground.klarnaevt.com",
-  extractBaseDSNUrl(process.env.SENTRY_DSN),
+  ...(process.env.SENTRY_DSN && extractBaseDSNUrl(process.env.SENTRY_DSN)
+    ? [extractBaseDSNUrl(process.env.SENTRY_DSN)]
+    : []),
   ...localhostSources,
   // Add other trusted sources here
 ];

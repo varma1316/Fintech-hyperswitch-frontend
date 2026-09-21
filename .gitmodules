@@ -1,0 +1,4 @@
+[submodule "web/shared-code"]
+	path = web/shared-code
+	url = https://github.com/juspay/hyperswitch-sdk-utils.git
+	branch = main
