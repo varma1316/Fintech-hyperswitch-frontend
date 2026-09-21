@@ -5,6 +5,9 @@
     "mode": "classic"
   },
   "compiler-flags": ["-open RescriptCore"],
+  "warnings": {
+    "number": "-3-27"
+  },
   "sources": [
     {
       "dir": "src",
