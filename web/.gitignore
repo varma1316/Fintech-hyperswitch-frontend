@@ -12,6 +12,7 @@ public/app.css
 /dist/
 **/*.bs.js
 screenshots
+shared-code/
 
 # Environment and secrets
 .env

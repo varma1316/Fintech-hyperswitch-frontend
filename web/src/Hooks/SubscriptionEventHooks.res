@@ -32,7 +32,7 @@ let useSubscriptionEventEmitter = (): emitter => {
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=PaymentMethodInfoCard,
+        ~eventType=CardDetailsChange,
       )
     ) {
       Utils.messageParentWindow(createCardInfoPayload(cardInfo))
@@ -48,7 +48,7 @@ let useSubscriptionEventEmitter = (): emitter => {
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=PaymentMethodStatus,
+        ~eventType=PaymentMethodChange,
       )
     ) {
       Utils.messageParentWindow(
@@ -66,7 +66,7 @@ let useSubscriptionEventEmitter = (): emitter => {
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=PaymentMethodInfoBillingAddress,
+        ~eventType=BillingDetailsChange,
       )
     ) {
       Utils.messageParentWindow(createBillingAddressPayload(~country, ~state, ~postalCode))
@@ -77,7 +77,7 @@ let useSubscriptionEventEmitter = (): emitter => {
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=CvcStatus,
+        ~eventType=CvcStatusChange,
       )
     ) {
       Utils.messageParentWindow(createCvcStatusPayload(~iframeId, ~isCvcEmpty, ~isCvcComplete))
@@ -88,7 +88,7 @@ let useSubscriptionEventEmitter = (): emitter => {
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=Surcharge,
+        ~eventType=SurchargeInfo,
       ) &&
       surchargeDetails->Option.isSome
     ) {
@@ -100,7 +100,7 @@ let useSubscriptionEventEmitter = (): emitter => {
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=Offers,
+        ~eventType=AppliedOffersInfo,
       ) &&
       offerDetails->Option.isSome
     ) {
@@ -142,7 +142,7 @@ let useEmitFormStatus = (
       if (
         PaymentEventData.shouldEmitEvent(
           ~subscribedEvents=subscribedEvents->Option.getOr([]),
-          ~eventType=FormStatus,
+          ~eventType=FormStatusChange,
         )
       ) {
         Utils.messageParentWindow(createFormStatusPayload(~status=formStatusValue))
@@ -167,7 +167,7 @@ let useEmitBillingAddress = () => {
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=PaymentMethodInfoBillingAddress,
+        ~eventType=BillingDetailsChange,
       )
     ) {
       Utils.messageParentWindow(createBillingAddressPayload(~country, ~state, ~postalCode=pinCode))
@@ -229,7 +229,7 @@ let useEmitPaymentMethodStatus = (
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=PaymentMethodStatus,
+        ~eventType=PaymentMethodChange,
       )
     ) {
       switch getPaymentMethodAndType(~paymentMethodName, ~paymentMethods, ~logger=loggerState) {
@@ -264,7 +264,7 @@ let useEmitSurchargeInfo = (
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=Surcharge,
+        ~eventType=SurchargeInfo,
       ) &&
       surchargeDetails->Option.isSome
     ) {
@@ -288,7 +288,7 @@ let useEmitAppliedOffersInfo = (
     if (
       PaymentEventData.shouldEmitEvent(
         ~subscribedEvents=subscribedEvents->Option.getOr([]),
-        ~eventType=Offers,
+        ~eventType=AppliedOffersInfo,
       ) &&
       offerDetails->Option.isSome
     ) {
