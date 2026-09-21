@@ -100,6 +100,7 @@ let decodeCardInfo = (json: JSON.t): PaymentEventData.cardInfo => {
     isExpiryComplete: dict->getBool("isExpiryComplete", false),
     isCardNumberValid: dict->getBool("isCardNumberValid", false),
     isExpiryValid: dict->getBool("isExpiryValid", false),
+    extendedBin: jsonOptionString(dict, "extendedBin"),
   }
 }
 
